@@ -1,9 +1,6 @@
 # mix run -e HelloApp.main -- greeting-target.txt
 defmodule HelloApp do
-  def main() do
-    main(File, IO, System)
-  end
-  def main(file, io, system) do
+  def main(file \\ File, io \\ IO, system \\ System) do
     time_unit = :microsecond
     microseconds_before = system.monotonic_time time_unit
     target = system.argv |> List.first |> file.read!
