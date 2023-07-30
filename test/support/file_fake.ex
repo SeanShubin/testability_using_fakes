@@ -3,7 +3,7 @@ defmodule FileFake do
     quote do
       def loop(state) do
         receive do
-          {:set_content, file, content} ->
+          {:set_file_contents, file, content} ->
             new_state = Map.put(state, file, content)
             loop(new_state)
           {:read!, caller, file} ->
@@ -14,8 +14,8 @@ defmodule FileFake do
           x -> raise "unmatched pattern #{inspect x}"
         end
       end
-      def set_content(file, content) do
-        send(__MODULE__, {:set_content, file, content})
+      def set_file_contents(file, content) do
+        send(__MODULE__, {:set_file_contents, file, content})
       end
       def read!(file) do
         send(__MODULE__, {:read!, self(), file})

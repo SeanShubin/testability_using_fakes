@@ -3,7 +3,7 @@ defmodule IOFake do
     quote do
       def loop(lines) do
         receive do
-          {:get_lines, caller} ->
+          {:get_lines_emitted_to_console, caller} ->
             send(caller, Enum.reverse(lines))
             loop(lines)
           {:puts, line} ->
@@ -17,8 +17,8 @@ defmodule IOFake do
       def puts(line) do
         send(__MODULE__, {:puts, line})
       end
-      def get_lines() do
-        send(__MODULE__, {:get_lines, self()})
+      def get_lines_emitted_to_console() do
+        send(__MODULE__, {:get_lines_emitted_to_console, self()})
         receive do x -> x end
       end
       def start() do
